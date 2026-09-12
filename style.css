@@ -371,22 +371,34 @@ ul {
    HERO — TEXT ONLY
 ========================================================= */
 
-.hero-container {
-    display: block;
-    width: 100%;
-}
-
-.hero-content {
-    max-width: 900px;
-}
-
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
 
-    padding-top: 130px;
+    padding-top: 120px;
     padding-bottom: 80px;
+}
+
+.hero-container {
+    width: min(92%, var(--container));
+    display: flex;
+    justify-content: center;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 850px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-description {
+    max-width: 700px;
 }
 
 .hero h1 {
@@ -409,14 +421,6 @@ ul {
     color: #dddde5;
     font-weight: 500;
     margin-bottom: 24px;
-}
-
-.hero-description {
-    max-width: 720px;
-    color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.8;
-    margin-bottom: 34px;
 }
 
 .hero-buttons {
