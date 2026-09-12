@@ -1975,6 +1975,74 @@ html {
         display: none;
     }
 
+    /* =========================================================
+    HERO ACTION BOX
+    ========================================================= */
+
+    .hero-action-box {
+        width: min(100%, 620px);
+
+        margin-top: 8px;
+        padding: 24px 28px;
+
+        position: relative;
+
+        border: 1px solid rgba(255, 45, 149, 0.28);
+        border-radius: 18px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(255, 45, 149, 0.07),
+                rgba(155, 92, 255, 0.025)
+            );
+
+        box-shadow:
+            0 0 30px rgba(255, 45, 149, 0.08),
+            inset 0 0 30px rgba(255, 45, 149, 0.025);
+
+        backdrop-filter: blur(10px);
+
+        transition: 0.3s ease;
+    }
+
+    .hero-action-box:hover {
+        border-color: rgba(255, 45, 149, 0.5);
+
+        box-shadow:
+            0 0 40px rgba(255, 45, 149, 0.13),
+            inset 0 0 35px rgba(255, 45, 149, 0.04);
+    }
+
+
+    /* Line above the buttons */
+
+    .hero-action-line {
+        width: 100%;
+        height: 1px;
+
+        margin-bottom: 22px;
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 45, 149, 0.75),
+            rgba(155, 92, 255, 0.65),
+            transparent
+        );
+
+        box-shadow:
+            0 0 8px rgba(255, 45, 149, 0.25);
+    }
+
+
+    /* Buttons inside the box */
+
+    .hero-action-box .hero-buttons {
+        justify-content: center;
+        margin-bottom: 0;
+    }
+
 
     /* About */
 
@@ -2148,6 +2216,20 @@ html {
     .contact-info h3 {
         font-size: 2rem;
     }
+
+    .hero-action-box {
+    width: 100%;
+    padding: 20px 16px;
+    }
+
+    .hero-action-box .hero-buttons {
+        width: 100%;
+    }
+
+    .hero-action-box .btn {
+        flex: 1;
+    }
+
 }
 
 
