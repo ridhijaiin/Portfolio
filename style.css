@@ -1770,23 +1770,53 @@ ul {
    18. CUSTOM SCROLLBAR
 ========================================================= */
 
+/* =========================================================
+   CUSTOM SCROLLBAR — VISIBLE PINK
+========================================================= */
+
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #07070a;
+    background: #0b0b10;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #25252e;
-    border-radius: 10px;
+    background: linear-gradient(
+        180deg,
+        #ff66b3,
+        #ff2d95,
+        #c91870
+    );
+
+    border-radius: 20px;
+
+    border: 3px solid #0b0b10;
+
+    box-shadow:
+        0 0 10px rgba(255, 45, 149, 0.5),
+        0 0 20px rgba(255, 45, 149, 0.25);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--pink);
+    background: linear-gradient(
+        180deg,
+        #ff8ac5,
+        #ff2d95
+    );
+
+    box-shadow:
+        0 0 15px rgba(255, 45, 149, 0.8),
+        0 0 30px rgba(255, 45, 149, 0.4);
 }
 
+/* Firefox */
+html {
+    scrollbar-width: auto;
+    scrollbar-color: #ff2d95 #0b0b10;
+}
 
 /* =========================================================
    19. RESPONSIVE — TABLET
