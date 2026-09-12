@@ -1,3 +1,4 @@
+
 /* =========================================================
    RIDHI JAIIN — AI/ML PORTFOLIO
    Modern Dark + Pink Theme
@@ -371,34 +372,22 @@ ul {
    HERO — TEXT ONLY
 ========================================================= */
 
+.hero-container {
+    display: block;
+    width: 100%;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    padding-top: 120px;
+    padding-top: 130px;
     padding-bottom: 80px;
-}
-
-.hero-container {
-    width: min(92%, var(--container));
-    display: flex;
-    justify-content: center;
-}
-
-.hero-content {
-    width: 100%;
-    max-width: 850px;
-    text-align: center;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hero-description {
-    max-width: 700px;
 }
 
 .hero h1 {
@@ -421,6 +410,14 @@ ul {
     color: #dddde5;
     font-weight: 500;
     margin-bottom: 24px;
+}
+
+.hero-description {
+    max-width: 720px;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 34px;
 }
 
 .hero-buttons {
@@ -1770,53 +1767,23 @@ ul {
    18. CUSTOM SCROLLBAR
 ========================================================= */
 
-/* =========================================================
-   CUSTOM SCROLLBAR — VISIBLE PINK
-========================================================= */
-
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0b0b10;
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    background: #07070a;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-        180deg,
-        #ff66b3,
-        #ff2d95,
-        #c91870
-    );
-
-    border-radius: 20px;
-
-    border: 3px solid #0b0b10;
-
-    box-shadow:
-        0 0 10px rgba(255, 45, 149, 0.5),
-        0 0 20px rgba(255, 45, 149, 0.25);
+    background: #25252e;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-        180deg,
-        #ff8ac5,
-        #ff2d95
-    );
-
-    box-shadow:
-        0 0 15px rgba(255, 45, 149, 0.8),
-        0 0 30px rgba(255, 45, 149, 0.4);
+    background: var(--pink);
 }
 
-/* Firefox */
-html {
-    scrollbar-width: auto;
-    scrollbar-color: #ff2d95 #0b0b10;
-}
 
 /* =========================================================
    19. RESPONSIVE — TABLET
@@ -1973,74 +1940,6 @@ html {
 
     .scroll-indicator {
         display: none;
-    }
-
-    /* =========================================================
-    HERO ACTION BOX
-    ========================================================= */
-
-    .hero-action-box {
-        width: min(100%, 620px);
-
-        margin-top: 8px;
-        padding: 24px 28px;
-
-        position: relative;
-
-        border: 1px solid rgba(255, 45, 149, 0.28);
-        border-radius: 18px;
-
-        background:
-            linear-gradient(
-                135deg,
-                rgba(255, 45, 149, 0.07),
-                rgba(155, 92, 255, 0.025)
-            );
-
-        box-shadow:
-            0 0 30px rgba(255, 45, 149, 0.08),
-            inset 0 0 30px rgba(255, 45, 149, 0.025);
-
-        backdrop-filter: blur(10px);
-
-        transition: 0.3s ease;
-    }
-
-    .hero-action-box:hover {
-        border-color: rgba(255, 45, 149, 0.5);
-
-        box-shadow:
-            0 0 40px rgba(255, 45, 149, 0.13),
-            inset 0 0 35px rgba(255, 45, 149, 0.04);
-    }
-
-
-    /* Line above the buttons */
-
-    .hero-action-line {
-        width: 100%;
-        height: 1px;
-
-        margin-bottom: 22px;
-
-        background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 45, 149, 0.75),
-            rgba(155, 92, 255, 0.65),
-            transparent
-        );
-
-        box-shadow:
-            0 0 8px rgba(255, 45, 149, 0.25);
-    }
-
-
-    /* Buttons inside the box */
-
-    .hero-action-box .hero-buttons {
-        justify-content: center;
-        margin-bottom: 0;
     }
 
 
@@ -2216,20 +2115,6 @@ html {
     .contact-info h3 {
         font-size: 2rem;
     }
-
-    .hero-action-box {
-    width: 100%;
-    padding: 20px 16px;
-    }
-
-    .hero-action-box .hero-buttons {
-        width: 100%;
-    }
-
-    .hero-action-box .btn {
-        flex: 1;
-    }
-
 }
 
 
