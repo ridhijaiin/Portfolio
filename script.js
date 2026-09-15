@@ -1,241 +1,167 @@
 /* =========================================================
-   RIDHI JAIIN — AI/ML PORTFOLIO
-   JavaScript
+   RIDHI JAIIN — STEP-THROUGH PORTFOLIO
 ========================================================= */
 
-/* ================= NEURAL NETWORK CANVAS ================= */
-(function () {
-    const canvas = document.getElementById("network-canvas");
-    const ctx = canvas.getContext("2d");
+/* ================= NEURAL NETWORK ================= */
+const canvas = document.getElementById("network-canvas");
+const ctx = canvas.getContext("2d");
 
-    let width, height;
-    let particles = [];
-    const mouse = { x: null, y: null };
+let width, height, nodes = [];
+const NODE_COUNT = 55;
+const CONNECTION_DIST = 150;
+const colors = { cyan: "34, 211, 238", violet: "139, 92, 246" };
 
-    const COLORS = [
-        "34, 211, 238",   // cyan
-        "139, 92, 246"    // violet
-    ];
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+}
 
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        init();
-    }
+function randomNode() {
+    return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.6 + 0.8,
+        color: Math.random() > 0.5 ? colors.cyan : colors.violet
+    };
+}
 
-    function init() {
-        const count = Math.min(120, Math.floor((width * height) / 14000));
-        particles = [];
-        for (let i = 0; i < count; i++) {
-            particles.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4,
-                radius: Math.random() * 2 + 1,
-                color: COLORS[Math.floor(Math.random() * COLORS.length)]
-            });
-        }
-    }
+function initNodes() {
+    nodes = [];
+    for (let i = 0; i < NODE_COUNT; i++) nodes.push(randomNode());
+}
 
-    function draw() {
-        ctx.clearRect(0, 0, width, height);
+function draw() {
+    ctx.clearRect(0, 0, width, height);
 
-        // Draw connections
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 130) {
-                    const opacity = (1 - dist / 130) * 0.35;
-                    ctx.strokeStyle = `rgba(${particles[i].color}, ${opacity})`;
-                    ctx.lineWidth = 0.6;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
+    for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+            const a = nodes[i], b = nodes[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < CONNECTION_DIST) {
+                const opacity = (1 - dist / CONNECTION_DIST) * 0.35;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.strokeStyle = `rgba(${colors.cyan}, ${opacity})`;
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
             }
         }
-
-        // Draw particles
-        particles.forEach(p => {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${p.color}, 0.7)`;
-            ctx.fill();
-        });
-
-        // Mouse connection
-        if (mouse.x !== null) {
-            particles.forEach(p => {
-                const dx = p.x - mouse.x;
-                const dy = p.y - mouse.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 160) {
-                    const opacity = (1 - dist / 160) * 0.25;
-                    ctx.strokeStyle = `rgba(34, 211, 238, ${opacity})`;
-                    ctx.lineWidth = 0.8;
-                    ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.stroke();
-                }
-            });
-        }
     }
 
-    function update() {
-        particles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
-
-            if (p.x < 0 || p.x > width) p.vx *= -1;
-            if (p.y < 0 || p.y > height) p.vy *= -1;
-        });
-    }
-
-    function animate() {
-        update();
-        draw();
-        requestAnimationFrame(animate);
-    }
-
-    window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", e => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
+    nodes.forEach(node => {
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${node.color}, 0.7)`;
+        ctx.fill();
     });
-    window.addEventListener("mouseout", () => {
-        mouse.x = null;
-        mouse.y = null;
+}
+
+function animate() {
+    nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+        if (node.x < 0 || node.x > width) node.vx *= -1;
+        if (node.y < 0 || node.y > height) node.vy *= -1;
+    });
+    draw();
+    requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", () => { resize(); initNodes(); });
+resize(); initNodes(); animate();
+
+/* ================= PANEL NAVIGATION ================= */
+const PANEL_ORDER = ["home", "about", "skills", "education", "projects", "contact"];
+const tabs = document.querySelectorAll(".tab");
+const panels = document.querySelectorAll(".panel");
+const dotsContainer = document.getElementById("step-dots");
+const prevBtn = document.getElementById("prev-step");
+const nextBtn = document.getElementById("next-step");
+
+let currentIndex = 0;
+
+function switchPanel(targetId) {
+    currentIndex = PANEL_ORDER.indexOf(targetId);
+
+    tabs.forEach(t => t.classList.toggle("active", t.dataset.panel === targetId));
+    panels.forEach(p => {
+        p.classList.remove("active");
+        if (p.id === targetId) p.classList.add("active");
     });
 
-    resize();
-    animate();
-})();
+    renderDots();
+    updateStepButtons();
+}
 
+function renderDots() {
+    dotsContainer.innerHTML = "";
+    PANEL_ORDER.forEach((id, i) => {
+        const dot = document.createElement("button");
+        dot.className = "step-dot" + (i === currentIndex ? " active" : "");
+        dot.setAttribute("aria-label", `Go to ${id}`);
+        dot.addEventListener("click", () => switchPanel(id));
+        dotsContainer.appendChild(dot);
+    });
+}
 
-/* ================= NAVBAR SCROLL ================= */
-const header = document.getElementById("header");
-window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 40);
+function updateStepButtons() {
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === PANEL_ORDER.length - 1;
+}
+
+tabs.forEach(tab => tab.addEventListener("click", () => switchPanel(tab.dataset.panel)));
+document.querySelectorAll("[data-goto]").forEach(btn => btn.addEventListener("click", () => switchPanel(btn.dataset.goto)));
+
+prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) switchPanel(PANEL_ORDER[currentIndex - 1]);
+});
+nextBtn.addEventListener("click", () => {
+    if (currentIndex < PANEL_ORDER.length - 1) switchPanel(PANEL_ORDER[currentIndex + 1]);
 });
 
-
-/* ================= MOBILE MENU ================= */
-const menuToggle = document.getElementById("menu-toggle");
-const navLinks = document.getElementById("nav-links");
-
-menuToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
-    menuToggle.innerHTML = navLinks.classList.contains("open")
-        ? '<i class="fa-solid fa-xmark"></i>'
-        : '<i class="fa-solid fa-bars"></i>';
+// keyboard arrows as a bonus (desktop only)
+document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextBtn.click();
+    if (e.key === "ArrowLeft") prevBtn.click();
 });
-
-navLinks.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    });
-});
-
-
-/* ================= ACTIVE NAV LINK ================= */
-const sections = document.querySelectorAll("section[id]");
-const navItems = document.querySelectorAll(".nav-link");
-
-window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-
-    sections.forEach(section => {
-        const top = section.offsetTop - 120;
-        const bottom = top + section.offsetHeight;
-
-        if (scrollY >= top && scrollY < bottom) {
-            navItems.forEach(item => {
-                item.classList.toggle("active", item.getAttribute("href") === `#${section.id}`);
-            });
-        }
-    });
-});
-
 
 /* ================= TYPING EFFECT ================= */
-const typingElement = document.querySelector(".typing-text");
+const typingText = document.querySelector(".typing-text");
 const roles = [
-    "AI / ML Developer",
-    "Python & Django Developer",
-    "Data Science Enthusiast",
-    "Final Year CSE (AI & ML) Student"
+    "ML-focused developer",
+    "B.E. CSE (AI & ML) student",
+    "Python & Django developer",
+    "Data-driven problem solver"
 ];
+let roleIndex = 0, charIndex = 0, deleting = false;
 
-let roleIndex = 0;
-let charIndex = 0;
-let deleting = false;
-
-function type() {
-    const currentRole = roles[roleIndex];
-
+function typeLoop() {
+    const current = roles[roleIndex];
     if (!deleting) {
-        typingElement.textContent = currentRole.substring(0, charIndex + 1);
-        charIndex++;
-        if (charIndex === currentRole.length) {
+        typingText.textContent = current.slice(0, ++charIndex);
+        if (charIndex === current.length) {
             deleting = true;
-            setTimeout(type, 2200);
+            setTimeout(typeLoop, 1800);
             return;
         }
-        setTimeout(type, 70);
+        setTimeout(typeLoop, 70);
     } else {
-        typingElement.textContent = currentRole.substring(0, charIndex - 1);
-        charIndex--;
+        typingText.textContent = current.slice(0, --charIndex);
         if (charIndex === 0) {
             deleting = false;
             roleIndex = (roleIndex + 1) % roles.length;
+            setTimeout(typeLoop, 400);
+            return;
         }
-        setTimeout(type, 40);
+        setTimeout(typeLoop, 35);
     }
 }
+typeLoop();
 
-type();
-
-
-/* ================= SCROLL REVEAL ================= */
-const revealElements = document.querySelectorAll(".reveal");
-const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1 });
-
-revealElements.forEach(el => revealObserver.observe(el));
-
-
-/* ================= SKILL METERS ================= */
-const meterBars = document.querySelectorAll(".meter-bar span");
-const meterObserver = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const level = entry.target.dataset.level;
-            entry.target.style.width = level + "%";
-            meterObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.4 });
-
-meterBars.forEach(bar => meterObserver.observe(bar));
-
-
-/* ================= CURRENT YEAR ================= */
-document.querySelectorAll(".footer-bottom p").forEach(el => {
-    const match = el.textContent.match(/\d{4}/);
-    if (match) {
-        el.textContent = el.textContent.replace(match[0], new Date().getFullYear());
-    }
-});
+/* ================= INIT ================= */
+renderDots();
+updateStepButtons();
