@@ -1,723 +1,241 @@
 /* =========================================================
-   RIDHI JAIIN — PORTFOLIO
+   RIDHI JAIIN — AI/ML PORTFOLIO
    JavaScript
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+/* ================= NEURAL NETWORK CANVAS ================= */
+(function () {
+    const canvas = document.getElementById("network-canvas");
+    const ctx = canvas.getContext("2d");
 
-    /* =====================================================
-       1. MOBILE NAVIGATION
-    ===================================================== */
+    let width, height;
+    let particles = [];
+    const mouse = { x: null, y: null };
 
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-    const navItems = document.querySelectorAll(".nav-link");
+    const COLORS = [
+        "34, 211, 238",   // cyan
+        "139, 92, 246"    // violet
+    ];
 
-    if (menuToggle && navLinks) {
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        init();
+    }
 
-        menuToggle.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
+    function init() {
+        const count = Math.min(120, Math.floor((width * height) / 14000));
+        particles = [];
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 2 + 1,
+                color: COLORS[Math.floor(Math.random() * COLORS.length)]
+            });
+        }
+    }
 
-            const icon = menuToggle.querySelector("i");
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
 
-            if (navLinks.classList.contains("active")) {
-                icon.classList.remove("fa-bars");
-                icon.classList.add("fa-xmark");
-            } else {
-                icon.classList.remove("fa-xmark");
-                icon.classList.add("fa-bars");
+        // Draw connections
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 130) {
+                    const opacity = (1 - dist / 130) * 0.35;
+                    ctx.strokeStyle = `rgba(${particles[i].color}, ${opacity})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
             }
+        }
+
+        // Draw particles
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${p.color}, 0.7)`;
+            ctx.fill();
         });
 
-        /* Close menu after clicking a link */
-
-        navItems.forEach(link => {
-            link.addEventListener("click", () => {
-                navLinks.classList.remove("active");
-
-                const icon = menuToggle.querySelector("i");
-
-                if (icon) {
-                    icon.classList.remove("fa-xmark");
-                    icon.classList.add("fa-bars");
+        // Mouse connection
+        if (mouse.x !== null) {
+            particles.forEach(p => {
+                const dx = p.x - mouse.x;
+                const dy = p.y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 160) {
+                    const opacity = (1 - dist / 160) * 0.25;
+                    ctx.strokeStyle = `rgba(34, 211, 238, ${opacity})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
                 }
             });
-        });
-    }
-
-
-    /* =====================================================
-       2. HEADER SCROLL EFFECT
-    ===================================================== */
-
-    const header = document.querySelector(".header");
-
-    const updateHeader = () => {
-        if (!header) return;
-
-        if (window.scrollY > 30) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
         }
-    };
-
-    window.addEventListener("scroll", updateHeader);
-    updateHeader();
-
-
-    /* =====================================================
-       3. TYPING EFFECT
-    ===================================================== */
-
-    const typingElement = document.querySelector(".typing-text");
-
-    if (typingElement) {
-
-        const roles = [
-            "ML-Focused Developer",
-            "Python Developer",
-            "Machine Learning Enthusiast",
-            "AI/ML Developer"
-        ];
-
-        let roleIndex = 0;
-        let characterIndex = 0;
-        let deleting = false;
-
-        const typeSpeed = 90;
-        const deleteSpeed = 50;
-        const pauseAfterTyping = 1600;
-        const pauseAfterDeleting = 500;
-
-        function typeText() {
-
-            const currentRole = roles[roleIndex];
-
-            if (!deleting) {
-
-                typingElement.textContent =
-                    currentRole.substring(0, characterIndex + 1);
-
-                characterIndex++;
-
-                if (characterIndex === currentRole.length) {
-
-                    deleting = true;
-
-                    setTimeout(typeText, pauseAfterTyping);
-
-                    return;
-                }
-
-                setTimeout(typeText, typeSpeed);
-
-            } else {
-
-                typingElement.textContent =
-                    currentRole.substring(0, characterIndex - 1);
-
-                characterIndex--;
-
-                if (characterIndex === 0) {
-
-                    deleting = false;
-
-                    roleIndex =
-                        (roleIndex + 1) % roles.length;
-
-                    setTimeout(typeText, pauseAfterDeleting);
-
-                    return;
-                }
-
-                setTimeout(typeText, deleteSpeed);
-            }
-        }
-
-        typeText();
     }
 
+    function update() {
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
 
-    /* =====================================================
-       4. SCROLL REVEAL ANIMATION
-    ===================================================== */
-
-    const revealElements =
-        document.querySelectorAll(".reveal");
-
-    if (revealElements.length) {
-
-        const revealObserver =
-            new IntersectionObserver(
-                (entries, observer) => {
-
-                    entries.forEach(entry => {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.classList.add("visible");
-
-                            observer.unobserve(entry.target);
-                        }
-                    });
-
-                },
-                {
-                    threshold: 0.12
-                }
-            );
-
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
         });
     }
 
-
-    /* =====================================================
-       5. ACTIVE NAVIGATION LINK
-    ===================================================== */
-
-    const sections =
-        document.querySelectorAll("section[id]");
-
-    const updateActiveNav = () => {
-
-        let currentSection = "";
-
-        sections.forEach(section => {
-
-            const sectionTop =
-                section.offsetTop - 150;
-
-            const sectionHeight =
-                section.offsetHeight;
-
-            if (
-                window.scrollY >= sectionTop &&
-                window.scrollY < sectionTop + sectionHeight
-            ) {
-                currentSection = section.getAttribute("id");
-            }
-        });
-
-        navItems.forEach(link => {
-
-            link.classList.remove("active");
-
-            const target =
-                link.getAttribute("href");
-
-            if (target === `#${currentSection}`) {
-                link.classList.add("active");
-            }
-        });
-    };
-
-    window.addEventListener(
-        "scroll",
-        updateActiveNav
-    );
-
-    updateActiveNav();
-
-
-    /* =====================================================
-       6. SMOOTH SCROLLING
-    ===================================================== */
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-        anchor.addEventListener("click", function (event) {
-
-            const targetId =
-                this.getAttribute("href");
-
-            if (
-                !targetId ||
-                targetId === "#"
-            ) {
-                return;
-            }
-
-            const target =
-                document.querySelector(targetId);
-
-            if (!target) return;
-
-            event.preventDefault();
-
-            const headerHeight =
-                header ? header.offsetHeight : 0;
-
-            const targetPosition =
-                target.getBoundingClientRect().top +
-                window.scrollY -
-                headerHeight;
-
-            window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth"
-            });
-        });
-    });
-
-
-    /* =====================================================
-       7. SKILL CARD STAGGER ANIMATION
-    ===================================================== */
-
-    const skillCards =
-        document.querySelectorAll(".skill-card");
-
-    skillCards.forEach((card, index) => {
-
-        card.style.transitionDelay =
-            `${index * 80}ms`;
-    });
-
-
-    /* =====================================================
-       8. PROJECT CARD INTERACTION
-    ===================================================== */
-
-    const projectCards =
-        document.querySelectorAll(".project-card");
-
-    projectCards.forEach(card => {
-
-        card.addEventListener("mousemove", event => {
-
-            if (window.innerWidth <= 760) return;
-
-            const rect =
-                card.getBoundingClientRect();
-
-            const x =
-                event.clientX - rect.left;
-
-            const y =
-                event.clientY - rect.top;
-
-            const centerX =
-                rect.width / 2;
-
-            const centerY =
-                rect.height / 2;
-
-            const rotateX =
-                ((y - centerY) / centerY) * -2;
-
-            const rotateY =
-                ((x - centerX) / centerX) * 2;
-
-            card.style.transform =
-                `perspective(900px)
-                 rotateX(${rotateX}deg)
-                 rotateY(${rotateY}deg)
-                 translateY(-8px)`;
-        });
-
-        card.addEventListener("mouseleave", () => {
-
-            card.style.transform = "";
-        });
-    });
-
-
-    /* =====================================================
-       9. SKILL CARD TILT
-    ===================================================== */
-
-    const cards =
-        document.querySelectorAll(".skill-card");
-
-    cards.forEach(card => {
-
-        card.addEventListener("mousemove", event => {
-
-            if (window.innerWidth <= 760) return;
-
-            const rect =
-                card.getBoundingClientRect();
-
-            const x =
-                event.clientX - rect.left;
-
-            const y =
-                event.clientY - rect.top;
-
-            const rotateY =
-                ((x - rect.width / 2) /
-                    rect.width) * 3;
-
-            const rotateX =
-                ((y - rect.height / 2) /
-                    rect.height) * -3;
-
-            card.style.transform =
-                `perspective(800px)
-                 rotateX(${rotateX}deg)
-                 rotateY(${rotateY}deg)
-                 translateY(-7px)`;
-        });
-
-        card.addEventListener("mouseleave", () => {
-            card.style.transform = "";
-        });
-    });
-
-
-    /* =====================================================
-       10. CURRENT YEAR
-    ===================================================== */
-
-    const yearElement =
-        document.querySelector("#current-year");
-
-    if (yearElement) {
-        yearElement.textContent =
-            new Date().getFullYear();
+    function animate() {
+        update();
+        draw();
+        requestAnimationFrame(animate);
     }
 
-
-    /* =====================================================
-       11. MOUSE GLOW EFFECT
-    ===================================================== */
-
-    const glow =
-        document.querySelector(".mouse-glow");
-
-    if (glow) {
-
-        document.addEventListener("mousemove", event => {
-
-            glow.style.left =
-                `${event.clientX}px`;
-
-            glow.style.top =
-                `${event.clientY}px`;
-        });
-    }
-
-
-    /* =====================================================
-       12. PARALLAX HERO VISUAL
-    ===================================================== */
-
-    const heroVisual =
-        document.querySelector(".hero-visual");
-
-    if (heroVisual) {
-
-        window.addEventListener("mousemove", event => {
-
-            if (window.innerWidth <= 760) return;
-
-            const x =
-                (event.clientX /
-                    window.innerWidth - 0.5) * 10;
-
-            const y =
-                (event.clientY /
-                    window.innerHeight - 0.5) * 10;
-
-            heroVisual.style.transform =
-                `translate(${x}px, ${y}px)`;
-        });
-    }
-
-
-    /* =====================================================
-       13. MAGNETIC BUTTON EFFECT
-    ===================================================== */
-
-    const magneticButtons =
-        document.querySelectorAll(
-            ".btn-primary, .nav-button"
-        );
-
-    magneticButtons.forEach(button => {
-
-        button.addEventListener("mousemove", event => {
-
-            if (window.innerWidth <= 760) return;
-
-            const rect =
-                button.getBoundingClientRect();
-
-            const x =
-                event.clientX - rect.left -
-                rect.width / 2;
-
-            const y =
-                event.clientY - rect.top -
-                rect.height / 2;
-
-            button.style.transform =
-                `translate(${x * 0.08}px,
-                           ${y * 0.08}px)`;
-        });
-
-        button.addEventListener("mouseleave", () => {
-
-            button.style.transform = "";
-        });
+    window.addEventListener("resize", resize);
+    window.addEventListener("mousemove", e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+    window.addEventListener("mouseout", () => {
+        mouse.x = null;
+        mouse.y = null;
     });
 
-
-    /* =====================================================
-       14. EDUCATION TIMELINE REVEAL
-    ===================================================== */
-
-    const timelineItems =
-        document.querySelectorAll(
-            ".timeline-item"
-        );
-
-    if (timelineItems.length) {
-
-        const timelineObserver =
-            new IntersectionObserver(
-                (entries, observer) => {
-
-                    entries.forEach(
-                        (entry, index) => {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                setTimeout(() => {
-
-                                    entry.target.classList.add(
-                                        "visible"
-                                    );
-
-                                }, index * 150);
-
-                                observer.unobserve(
-                                    entry.target
-                                );
-                            }
-                        }
-                    );
-
-                },
-                {
-                    threshold: 0.15
-                }
-            );
-
-        timelineItems.forEach(item => {
-
-            item.classList.add("reveal");
-
-            timelineObserver.observe(item);
-        });
-    }
+    resize();
+    animate();
+})();
 
 
-    /* =====================================================
-       15. BACK TO TOP BUTTON
-    ===================================================== */
-
-    const backToTop =
-        document.querySelector(".back-to-top");
-
-    if (backToTop) {
-
-        window.addEventListener("scroll", () => {
-
-            if (window.scrollY > 600) {
-
-                backToTop.classList.add("show");
-
-            } else {
-
-                backToTop.classList.remove("show");
-            }
-        });
-
-        backToTop.addEventListener(
-            "click",
-            () => {
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-        );
-    }
-
-
-    /* =====================================================
-       16. PROJECT PLACEHOLDER CLICK
-    ===================================================== */
-
-    document
-        .querySelectorAll(".project-placeholder")
-        .forEach(placeholder => {
-
-            placeholder.addEventListener(
-                "click",
-                () => {
-
-                    const card =
-                        placeholder.closest(
-                            ".project-card"
-                        );
-
-                    if (!card) return;
-
-                    card.classList.add(
-                        "project-highlight"
-                    );
-
-                    setTimeout(() => {
-
-                        card.classList.remove(
-                            "project-highlight"
-                        );
-
-                    }, 1000);
-                }
-            );
-        });
-
-
-    /* =====================================================
-       17. KEYBOARD ACCESSIBILITY
-    ===================================================== */
-
-    document.addEventListener("keydown", event => {
-
-        /*
-         * Escape closes mobile navigation
-         */
-
-        if (event.key === "Escape") {
-
-            if (
-                navLinks &&
-                navLinks.classList.contains("active")
-            ) {
-
-                navLinks.classList.remove("active");
-
-                const icon =
-                    menuToggle?.querySelector("i");
-
-                if (icon) {
-
-                    icon.classList.remove(
-                        "fa-xmark"
-                    );
-
-                    icon.classList.add(
-                        "fa-bars"
-                    );
-                }
-            }
-        }
-    });
-
-
-    /* =====================================================
-       18. LAZY IMAGE HANDLING
-    ===================================================== */
-
-    const images =
-        document.querySelectorAll("img[data-src]");
-
-    images.forEach(image => {
-        image.addEventListener(
-            "error",
-            () => {
-                image.style.display = "none";
-            }
-        );
-    });
-
-
-    /* =====================================================
-       19. PAGE LOAD ANIMATION
-    ===================================================== */
-
-    document.body.classList.add("page-loaded");
-
+/* ================= NAVBAR SCROLL ================= */
+const header = document.getElementById("header");
+window.addEventListener("scroll", () => {
+    header.classList.toggle("scrolled", window.scrollY > 40);
 });
 
 
-/* =========================================================
-   EXTRA UTILITY FUNCTIONS
-========================================================= */
+/* ================= MOBILE MENU ================= */
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
 
+menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+    menuToggle.innerHTML = navLinks.classList.contains("open")
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<i class="fa-solid fa-bars"></i>';
+});
 
-/*
- * Copy email address to clipboard.
- *
- * Add:
- * data-copy-email="your@email.com"
- *
- * to an element if you want to use this.
- */
-
-document
-    .querySelectorAll("[data-copy-email]")
-    .forEach(element => {
-
-        element.addEventListener("click", async () => {
-
-            const email =
-                element.getAttribute(
-                    "data-copy-email"
-                );
-
-            if (!email) return;
-
-            try {
-
-                await navigator.clipboard.writeText(
-                    email
-                );
-
-                const originalText =
-                    element.textContent;
-
-                element.textContent =
-                    "Email copied!";
-
-                setTimeout(() => {
-
-                    element.textContent =
-                        originalText;
-
-                }, 1500);
-
-            } catch (error) {
-
-                console.error(
-                    "Unable to copy email:",
-                    error
-                );
-            }
-        });
+navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
     });
+});
 
 
-/* =========================================================
-   CONSOLE MESSAGE
-========================================================= */
+/* ================= ACTIVE NAV LINK ================= */
+const sections = document.querySelectorAll("section[id]");
+const navItems = document.querySelectorAll(".nav-link");
 
-console.log(
-    "%c Ridhi Jaiin ",
-    "background:#ff2d95;color:#fff;padding:8px 12px;border-radius:6px;font-weight:bold;"
-);
+window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
 
-console.log(
-    "%c AI/ML Portfolio — Built with HTML, CSS & JavaScript",
-    "color:#ff66b3;font-size:12px;"
-);
+    sections.forEach(section => {
+        const top = section.offsetTop - 120;
+        const bottom = top + section.offsetHeight;
+
+        if (scrollY >= top && scrollY < bottom) {
+            navItems.forEach(item => {
+                item.classList.toggle("active", item.getAttribute("href") === `#${section.id}`);
+            });
+        }
+    });
+});
+
+
+/* ================= TYPING EFFECT ================= */
+const typingElement = document.querySelector(".typing-text");
+const roles = [
+    "AI / ML Developer",
+    "Python & Django Developer",
+    "Data Science Enthusiast",
+    "Final Year CSE (AI & ML) Student"
+];
+
+let roleIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function type() {
+    const currentRole = roles[roleIndex];
+
+    if (!deleting) {
+        typingElement.textContent = currentRole.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === currentRole.length) {
+            deleting = true;
+            setTimeout(type, 2200);
+            return;
+        }
+        setTimeout(type, 70);
+    } else {
+        typingElement.textContent = currentRole.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+            deleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+        }
+        setTimeout(type, 40);
+    }
+}
+
+type();
+
+
+/* ================= SCROLL REVEAL ================= */
+const revealElements = document.querySelectorAll(".reveal");
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+
+/* ================= SKILL METERS ================= */
+const meterBars = document.querySelectorAll(".meter-bar span");
+const meterObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const level = entry.target.dataset.level;
+            entry.target.style.width = level + "%";
+            meterObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.4 });
+
+meterBars.forEach(bar => meterObserver.observe(bar));
+
+
+/* ================= CURRENT YEAR ================= */
+document.querySelectorAll(".footer-bottom p").forEach(el => {
+    const match = el.textContent.match(/\d{4}/);
+    if (match) {
+        el.textContent = el.textContent.replace(match[0], new Date().getFullYear());
+    }
+});

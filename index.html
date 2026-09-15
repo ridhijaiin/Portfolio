@@ -3,47 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-        content="Ridhi Jaiin — AI/ML Developer and CSE (AI & ML) student specializing in machine learning, EDA, model training, Python, and Django.">
-
+    <meta name="description" content="Ridhi Jaiin — AI/ML Developer and CSE (AI & ML) student specializing in machine learning, EDA, model training, Python, and Django.">
     <title>Ridhi Jaiin | AI/ML Developer</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
-        rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- Main CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- =========================
-         BACKGROUND EFFECTS
-    ========================== -->
-    <div class="background-grid"></div>
-    <div class="glow glow-one"></div>
-    <div class="glow glow-two"></div>
+    <!-- Neural network canvas -->
+    <canvas id="network-canvas"></canvas>
 
-
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
+    <!-- ===== NAVIGATION ===== -->
     <header class="header" id="header">
         <nav class="navbar container">
-
-            <a href="#home" class="logo">
-                <span>R</span>J<span class="logo-dot">.</span>
-            </a>
+            <a href="#home" class="logo"><span>R</span>J<span class="logo-dot">.</span></a>
 
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
                 <i class="fa-solid fa-bars"></i>
@@ -54,7 +31,6 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -63,721 +39,299 @@
                 Let's Connect
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
-
         </nav>
     </header>
 
-
     <main>
 
-        <!-- =========================
-             HERO SECTION
-        ========================== -->
+        <!-- ===== HERO ===== -->
         <section class="hero section" id="home">
-
-            <div class="hero-container container">
-
+            <div class="container">
                 <div class="hero-content reveal">
-
-                    <p class="hero-intro">
-                        Hello, I'm
-                    </p>
-
-                    <h1>
-                        Ridhi <span>Jaiin</span>
-                    </h1>
-
-                    <h2>
-                        AI/ML Developer
-                        <span class="typing-cursor">|</span>
-                    </h2>
-
+                    <p class="hero-intro">Hello, I'm</p>
+                    <h1>Ridhi <span>Jaiin</span></h1>
+                    <h2 class="typing-line"><span class="typing-text"></span><span class="typing-cursor">|</span></h2>
                     <p class="hero-description">
-                        ML-focused developer passionate about building intelligent
-                        applications, transforming data into insights, and taking
-                        machine-learning solutions from data preprocessing to deployment.
+                        ML-focused developer passionate about building intelligent applications,
+                        transforming data into insights, and taking machine-learning solutions
+                        from data preprocessing to deployment.
                     </p>
-
                     <div class="hero-buttons">
                         <a href="#projects" class="btn btn-primary">
-                            View My Work
-                            <i class="fa-solid fa-arrow-right"></i>
+                            View My Work <i class="fa-solid fa-arrow-right"></i>
                         </a>
-
                         <a href="#contact" class="btn btn-outline">
-                            Let's Connect
-                            <i class="fa-regular fa-paper-plane"></i>
+                            Let's Connect <i class="fa-regular fa-paper-plane"></i>
                         </a>
                     </div>
-
                     <div class="social-links">
-
-                        <a href="https://github.com/ridhijaiin"
-                        aria-label="GitHub"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-
-                        <a href="https://www.linkedin.com/in/ridhi-jaiin/"
-                        aria-label="LinkedIn"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                            <i class="fa-brands fa-linkedin-in"></i>
-                        </a>
-
-                        <a href="mailto:ridhijaiin231@gmail.com"
-                        aria-label="Email">
-                            <i class="fa-solid fa-envelope"></i>
-                        </a>
-
+                        <a href="https://github.com/ridhijaiin" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/ridhi-jaiin/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="mailto:ridhijaiin231@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
                     </div>
-
                 </div>
             </div>
-
             <div class="scroll-indicator">
                 <span>Scroll to explore</span>
                 <i class="fa-solid fa-arrow-down"></i>
             </div>
-
         </section>
 
-
-        <!-- =========================
-             ABOUT SECTION
-        ========================== -->
+        <!-- ===== ABOUT ===== -->
         <section class="about section" id="about">
-
             <div class="container">
-
                 <div class="section-heading reveal">
                     <span class="section-number">01</span>
                     <p>Get to know me</p>
                     <h2>About <span>Me</span></h2>
                 </div>
 
-
                 <div class="about-grid">
-
                     <div class="about-content reveal">
-
                         <p class="about-lead">
-                            I'm an aspiring
-                            <strong>AI/ML Developer</strong>
-                            focused on turning data into intelligent,
-                            practical solutions.
+                            I'm an aspiring <strong>AI/ML Developer</strong> focused on turning data into intelligent, practical solutions.
                         </p>
-
                         <p>
-                            ML-focused developer with hands-on experience building
-                            web applications using Django and Python, and a growing
-                            focus on machine learning and AI applications.
+                            ML-focused developer with hands-on experience building web applications using Django and Python, and a growing focus on machine learning and AI applications.
                         </p>
-
                         <p>
-                            I'm skilled in data preprocessing, exploratory data
-                            analysis, and model training using tools such as
-                            Pandas, NumPy, and Scikit-learn. I'm particularly
-                            interested in applying complete machine-learning
-                            workflows — from data cleaning and analysis to model
-                            deployment.
+                            Skilled in data preprocessing, exploratory data analysis, and model training using tools such as Pandas, NumPy, and Scikit-learn — applying complete ML workflows from data cleaning to model deployment.
                         </p>
-
                         <p>
-                            I'm currently looking for opportunities where I can
-                            apply my skills, learn continuously, and contribute
-                            to meaningful AI/ML projects.
+                            Currently looking for opportunities where I can apply my skills, learn continuously, and contribute to meaningful AI/ML projects.
                         </p>
-
 
                         <div class="about-info">
-
-                            <div class="info-item">
-                                <span>Focus</span>
-                                <strong>AI / Machine Learning</strong>
-                            </div>
-
-                            <div class="info-item">
-                                <span>Development</span>
-                                <strong>Python / Django</strong>
-                            </div>
-
-                            <div class="info-item">
-                                <span>Education</span>
-                                <strong>B.E. CSE (AI & ML)</strong>
-                            </div>
-
-                            <div class="info-item">
-                                <span>Graduation</span>
-                                <strong>2027</strong>
-                            </div>
-
+                            <div class="info-item"><span>Focus</span><strong>AI / Machine Learning</strong></div>
+                            <div class="info-item"><span>Development</span><strong>Python / Django</strong></div>
+                            <div class="info-item"><span>Education</span><strong>B.E. CSE (AI & ML)</strong></div>
+                            <div class="info-item"><span>Graduation</span><strong>2027</strong></div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- =========================
-             SKILLS SECTION
-        ========================== -->
+        <!-- ===== SKILLS ===== -->
         <section class="skills section" id="skills">
-
             <div class="container">
-
                 <div class="section-heading reveal">
                     <span class="section-number">02</span>
                     <p>What I work with</p>
                     <h2>My <span>Skills</span></h2>
                 </div>
 
-
                 <div class="skills-grid">
 
-                    <!-- Machine Learning -->
                     <div class="skill-card reveal">
-
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-
+                        <div class="skill-icon"><i class="fa-solid fa-brain"></i></div>
                         <h3>Machine Learning</h3>
-
-                        <p>
-                            Building and training machine-learning models
-                            for practical data-driven applications.
-                        </p>
-
+                        <p>Building and training ML models for practical data-driven applications.</p>
                         <div class="skill-tags">
-                            <span>Machine Learning</span>
-                            <span>Model Training</span>
-                            <span>Model Evaluation</span>
-                            <span>Deployment</span>
+                            <span>Model Training</span><span>Model Evaluation</span><span>Deployment</span>
                         </div>
-
+                        <div class="skill-meter">
+                            <div class="meter-bar"><span data-level="82"></span></div>
+                            <small>82%</small>
+                        </div>
                     </div>
 
-
-                    <!-- Data Science -->
                     <div class="skill-card reveal">
-
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-chart-column"></i>
-                        </div>
-
+                        <div class="skill-icon"><i class="fa-solid fa-chart-column"></i></div>
                         <h3>Data Science</h3>
-
-                        <p>
-                            Exploring datasets, preprocessing data, and
-                            extracting meaningful insights.
-                        </p>
-
+                        <p>Exploring datasets, preprocessing data, and extracting meaningful insights.</p>
                         <div class="skill-tags">
-                            <span>EDA</span>
-                            <span>Data Preprocessing</span>
-                            <span>Pandas</span>
-                            <span>NumPy</span>
+                            <span>EDA</span><span>Data Preprocessing</span>
                         </div>
-
+                        <div class="skill-meter">
+                            <div class="meter-bar"><span data-level="78"></span></div>
+                            <small>78%</small>
+                        </div>
                     </div>
 
-
-                    <!-- Development -->
                     <div class="skill-card reveal">
-
-                        <div class="skill-icon">
-                            <i class="fa-brands fa-python"></i>
-                        </div>
-
-                        <h3>Development</h3>
-
-                        <p>
-                            Developing web applications and backend
-                            functionality using Python technologies.
-                        </p>
-
+                        <div class="skill-icon"><i class="fa-brands fa-python"></i></div>
+                        <h3>Python</h3>
+                        <p>Developing data-driven applications and web solutions using Python and Django.</p>
                         <div class="skill-tags">
-                            <span>Python</span>
-                            <span>Django</span>
+                            <span>Python</span><span>Django</span>
                         </div>
-
+                        <div class="skill-meter">
+                            <div class="meter-bar"><span data-level="85"></span></div>
+                            <small>85%</small>
+                        </div>
                     </div>
 
-
-                    <!-- ML Tools -->
                     <div class="skill-card reveal">
-
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-
+                        <div class="skill-icon"><i class="fa-solid fa-microchip"></i></div>
                         <h3>ML Tools</h3>
-
-                        <p>
-                            Working with popular Python libraries for
-                            machine-learning workflows.
-                        </p>
-
+                        <p>Working with popular Python libraries for machine-learning workflows.</p>
                         <div class="skill-tags">
-                            <span>Scikit-learn</span>
-                            <span>Pandas</span>
-                            <span>NumPy</span>
+                            <span>Scikit-learn</span><span>Pandas</span><span>NumPy</span>
                         </div>
-
+                        <div class="skill-meter">
+                            <div class="meter-bar"><span data-level="80"></span></div>
+                            <small>80%</small>
+                        </div>
                     </div>
 
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- =========================
-             EDUCATION SECTION
-        ========================== -->
+        <!-- ===== EDUCATION ===== -->
         <section class="education section" id="education">
-
             <div class="container">
-
                 <div class="section-heading reveal">
                     <span class="section-number">03</span>
                     <p>My academic journey</p>
                     <h2>Education</h2>
                 </div>
 
-
                 <div class="timeline">
 
                     <div class="timeline-item reveal">
-
-                        <div class="timeline-dot">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-
+                        <div class="timeline-dot"><i class="fa-solid fa-graduation-cap"></i></div>
                         <div class="timeline-card">
-
-                            <div class="timeline-date">
-                                2023 — 2027
-                            </div>
-
-                            <h3>
-                                B.E. in Computer Science Engineering
-                                <span>(AI & ML)</span>
-                            </h3>
-
-                            <h4>
-                                Sai Vidya Institute of Technology
-                            </h4>
-
-                            <p>
-                                Pursuing a Bachelor of Engineering with a
-                                specialization in Computer Science Engineering,
-                                Artificial Intelligence, and Machine Learning.
-                            </p>
-
+                            <div class="timeline-date">2023 — 2027</div>
+                            <h3>B.E. in Computer Science Engineering <span>(AI & ML)</span></h3>
+                            <h4>Sai Vidya Institute of Technology</h4>
+                            <p>Pursuing a Bachelor of Engineering with a specialization in Computer Science Engineering, Artificial Intelligence, and Machine Learning with a CGPA of 8.32.</p>
                             <div class="education-tags">
-                                <span>Artificial Intelligence</span>
-                                <span>Machine Learning</span>
-                                <span>Computer Science</span>
+                                <span>Artificial Intelligence</span><span>Machine Learning</span><span>Computer Science</span>
                             </div>
-
-                            <div class="expected">
-                                <i class="fa-solid fa-circle-check"></i>
-                                Expected Graduation: 2027
-                            </div>
-
+                            <div class="expected"><i class="fa-solid fa-circle-check"></i> Expected Graduation: 2027</div>
                         </div>
+                    </div>
 
+                    <!-- 12th grade — fill in your details -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"><i class="fa-solid fa-school"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">2021 — 2023</div>
+                            <h3>Class 12 <span>(Pre-University)</span></h3>
+                            <h4>Deeksha Learning Centre</h4>
+                            <div class="education-tags">
+                                <span>KSEAB</span><span>PCM with CS</span>
+                            </div>
+                            <div class="expected"><i class="fa-solid fa-circle-check"></i>80%</div>
+                        </div>
+                    </div>
+
+                    <!-- 10th grade — fill in your details -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"><i class="fa-solid fa-book-open"></i></div>
+                        <div class="timeline-card">
+                            <div class="timeline-date">2019 — 2021</div>
+                            <h3>Class 10 <span>(Secondary)</span></h3>
+                            <h4>Vista School</h4>
+                            <div class="education-tags">
+                                <span>CBSE</span>
+                            </div>
+                            <div class="expected"><i class="fa-solid fa-circle-check"></i>85%</div>
+                        </div>
                     </div>
 
                 </div>
-
             </div>
-
         </section>
 
-
-        <!-- =========================
-             JOURNEY SECTION
-        ========================== -->
-        <section class="journey section" id="journey">
-
+        <!-- ===== PROJECTS ===== -->
+        <section class="projects section" id="projects">
             <div class="container">
-
                 <div class="section-heading reveal">
                     <span class="section-number">04</span>
-                    <p>Where I am now</p>
-                    <h2>My <span>Journey</span></h2>
-                </div>
-
-
-                <div class="journey-card reveal">
-
-                    <div class="journey-icon">
-                        <i class="fa-solid fa-rocket"></i>
-                    </div>
-
-                    <div class="journey-content">
-
-                        <span class="journey-label">
-                            CURRENTLY BUILDING
-                        </span>
-
-                        <h3>
-                            Growing into an AI/ML Professional
-                        </h3>
-
-                        <p>
-                            I'm actively building my technical expertise
-                            through machine-learning projects,
-                            data analysis, Python development,
-                            model training, and experimentation with AI/ML
-                            workflows.
-                        </p>
-
-                        <div class="journey-points">
-
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                Machine Learning
-                            </div>
-
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                Data Analysis
-                            </div>
-
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                Model Development
-                            </div>
-
-                            <div>
-                                <i class="fa-solid fa-check"></i>
-                                Python Development
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             SERVICES SECTION
-        ========================== -->
-        <section class="services section" id="services">
-
-            <div class="container">
-
-                <div class="section-heading reveal">
-                    <span class="section-number">05</span>
-                    <p>What I can help with</p>
-                    <h2>My <span>Services</span></h2>
-                </div>
-
-
-                <div class="service-main-card reveal">
-
-                    <div class="service-number">
-                        01
-                    </div>
-
-                    <div class="service-icon-large">
-                        <i class="fa-solid fa-brain"></i>
-                    </div>
-
-                    <div class="service-content">
-
-                        <h3>ML Solutions</h3>
-
-                        <p>
-                            Developing practical machine-learning solutions
-                            that transform raw data into useful insights
-                            and predictive models.
-                        </p>
-
-                        <div class="workflow">
-
-                            <div class="workflow-step">
-                                <span>01</span>
-                                <strong>Data</strong>
-                            </div>
-
-                            <div class="workflow-line"></div>
-
-                            <div class="workflow-step">
-                                <span>02</span>
-                                <strong>EDA</strong>
-                            </div>
-
-                            <div class="workflow-line"></div>
-
-                            <div class="workflow-step">
-                                <span>03</span>
-                                <strong>Preprocess</strong>
-                            </div>
-
-                            <div class="workflow-line"></div>
-
-                            <div class="workflow-step">
-                                <span>04</span>
-                                <strong>Train</strong>
-                            </div>
-
-                            <div class="workflow-line"></div>
-
-                            <div class="workflow-step">
-                                <span>05</span>
-                                <strong>Deploy</strong>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             PROJECTS SECTION
-        ========================== -->
-        <section class="projects" id="projects">
-
-            <div class="container">
-
-                <div class="section-heading">
                     <p>MY WORK</p>
                     <h2>Featured <span>Projects</span></h2>
                 </div>
 
                 <div class="projects-grid">
-
-                    <!-- PROJECT 1 -->
-                    <article class="project-card">
-
+                    <article class="project-card reveal">
                         <div class="project-image">
                             <div class="project-placeholder">
-                                <i class="fa-solid fa-brain"></i>
+                                <i class="fa-solid fa-shirt"></i>
+                                <span>StyleSense</span>
                             </div>
                         </div>
-
                         <div class="project-content">
-
                             <div class="project-tags">
-                                <span>Python</span>
-                                <span>Recommendation System</span>
+                                <span>Python</span><span>Django</span><span>Recommendation System</span>
                             </div>
-
-                            <h3>StyleSense-AI based fashion recommendation system</h3>
-
-                            <p>
-                                AI-based fashion webapp.
-                                Personalized outfit recommendations,
-                                using Django.
-                            </p>
-
+                            <h3>StyleSense — AI-based Fashion Recommendation System</h3>
+                            <p>AI-based fashion webapp providing personalized outfit recommendations, built with Django.</p>
                             <div class="project-links">
-
-                                <a href="https://github.com/ridhijaiin/stylesense"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                    <i class="fa-brands fa-github"></i>
-                                    GitHub
+                                <a href="https://github.com/ridhijaiin/stylesense" target="_blank" rel="noopener noreferrer">
+                                    <i class="fa-brands fa-github"></i> GitHub
                                 </a>
-
                             </div>
-
                         </div>
-
                     </article>
-
                 </div>
-
             </div>
-
         </section>
 
-
-
-        <!-- =========================
-             CONTACT SECTION
-        ========================== -->
+        <!-- ===== CONTACT ===== -->
         <section class="section contact" id="contact">
-
             <div class="container">
-
-                <div class="section-heading">
+                <div class="section-heading reveal">
+                    <span class="section-number">05</span>
                     <p>Get In Touch</p>
                     <h2>Let's <span>Connect.</span></h2>
                 </div>
 
                 <div class="contact-grid">
-
-                    <div class="contact-info">
-
-                        <span class="contact-label">
-                            HAVE A PROJECT IN MIND?
-                        </span>
-
-                        <h3>
-                            Let's build something
-                            <span>intelligent.</span>
-                        </h3>
-
+                    <div class="contact-info reveal">
+                        <span class="contact-label">HAVE A PROJECT IN MIND?</span>
+                        <h3>Let's build something <span>intelligent.</span></h3>
                         <p>
-                            I'm interested in machine learning, AI applications,
-                            Python development, and opportunities where I can
-                            build practical solutions using data and technology.
+                            I'm interested in machine learning, AI applications, Python development,
+                            and opportunities where I can build practical solutions using data and technology.
                         </p>
 
                         <div class="contact-methods">
                             <a href="tel:+918050958564" class="contact-method">
-
-                                <div class="contact-method-icon">
-                                    <i class="fa-solid fa-phone"></i>
-                                </div>
-
-                                <div>
-                                    <span>Phone</span>
-                                    <strong>+91 8050958564</strong>
-                                </div>
-
+                                <div class="contact-method-icon"><i class="fa-solid fa-phone"></i></div>
+                                <div><span>Phone</span><strong>+91 8050958564</strong></div>
                             </a>
-
-
-                            <a href="mailto:ridhijaiin231@gmail.com"
-                            class="contact-method">
-
-                                <div class="contact-method-icon">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
-
-                                <div>
-                                    <span>Email</span>
-                                    <strong>ridhijaiin231@gmail.com</strong>
-                                </div>
-
+                            <a href="mailto:ridhijaiin231@gmail.com" class="contact-method">
+                                <div class="contact-method-icon"><i class="fa-solid fa-envelope"></i></div>
+                                <div><span>Email</span><strong>ridhijaiin231@gmail.com</strong></div>
                             </a>
-
-                            <a href="https://www.linkedin.com/in/ridhi-jaiin/"
-                            class="contact-method">
-
-                                <div class="contact-method-icon">
-                                    <i class="fa-brands fa-linkedin-in"></i>
-                                </div>
-
-                                <div>
-                                    <span>LinkedIn</span>
-                                    <strong>Connect with me</strong>
-                                </div>
-
+                            <a href="https://www.linkedin.com/in/ridhi-jaiin/" class="contact-method">
+                                <div class="contact-method-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+                                <div><span>LinkedIn</span><strong>Connect with me</strong></div>
                             </a>
-
-                            <a href="https://github.com/ridhijaiin"
-                            class="contact-method">
-
-                                <div class="contact-method-icon">
-                                    <i class="fa-brands fa-github"></i>
-                                </div>
-
-                                <div>
-                                    <span>GitHub</span>
-                                    <strong>View my work</strong>
-                                </div>
-
+                            <a href="https://github.com/ridhijaiin" class="contact-method">
+                                <div class="contact-method-icon"><i class="fa-brands fa-github"></i></div>
+                                <div><span>GitHub</span><strong>View my work</strong></div>
                             </a>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </section>
 
     </main>
 
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
-
         <div class="container footer-container">
-
             <div class="footer-brand">
-
-                <a href="#home" class="logo">
-                    <span>R</span>J<span class="logo-dot">.</span>
-                </a>
-
-                <p>
-                    Building intelligent solutions,
-                    one model at a time.
-                </p>
-
+                <a href="#home" class="logo"><span>R</span>J<span class="logo-dot">.</span></a>
+                <p>Building intelligent solutions, one model at a time.</p>
             </div>
-
-
             <div class="footer-socials">
-
-                <a href="#" aria-label="GitHub">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-
-                <a href="#" aria-label="LinkedIn">
-                    <i class="fa-brands fa-linkedin-in"></i>
-                </a>
-
-                <a href="mailto:your-email@example.com"
-                   aria-label="Email">
-                    <i class="fa-regular fa-envelope"></i>
-                </a>
-
+                <a href="https://github.com/ridhijaiin" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/ridhi-jaiin/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="mailto:ridhijaiin231@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
             </div>
-
-
             <div class="footer-bottom">
-
-                <p>
-                    © 2026 Ridhi Jaiin. All rights reserved.
-                </p>
-
-                <a href="#home">
-                    Back to top
-                    <i class="fa-solid fa-arrow-up"></i>
-                </a>
-
+                <p>© 2026 Ridhi Jaiin. All rights reserved.</p>
+                <a href="#home">Back to top <i class="fa-solid fa-arrow-up"></i></a>
             </div>
-
         </div>
-
     </footer>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
     <script src="script.js"></script>
-
 </body>
 </html>
