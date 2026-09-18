@@ -162,6 +162,28 @@ function typeLoop() {
 }
 typeLoop();
 
+/* ================= SCROLL SYNC ================= */
+function updateStepFromScroll() {
+    let closest = 0;
+    let closestOffset = Infinity;
+    panels.forEach((panel, i) => {
+        const rect = panel.getBoundingClientRect();
+        const offset = Math.abs(rect.top);
+        if (offset < closestOffset) {
+            closestOffset = offset;
+            closest = i;
+        }
+    });
+    if (closest !== currentIndex) {
+        switchPanel(PANEL_ORDER[closest]);
+    }
+}
+
+window.addEventListener("scroll", () => {
+    requestAnimationFrame(updateStepFromScroll);
+}, { passive: true });
+
+
 /* ================= INIT ================= */
 renderDots();
 updateStepButtons();
